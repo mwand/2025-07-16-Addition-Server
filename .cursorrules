@@ -1,0 +1,50 @@
+# Project Scope
+This is a very simple project to illustrate the service-controller architecture
+
+## Project Components
+Typescript
+node.js
+vitest
+eslint
+stryker
+validate routes with zod
+
+## Coding Standards
+- Use TypeScript with strict mode
+- Prefer functional programming patterns
+- Always include error handling
+- Write self-documenting code with clear variable names
+- Never delete tests
+- Avoid using "any" type unless absolutely necessary
+- Avoid imperative programming constructs like loops and mutable state
+- Avoid using "unknown" type; prefer specific types or generics
+
+## Response Format
+- For complex requests, guide me step-by-step
+- Provide complete, working code
+- Include brief explanations for complex logic
+- Suggest optimizations when relevant
+
+## Repository Structure
+- `src/` for source code
+  - `additionService.ts` for business logic
+  - `additionController.ts` for handling requests
+  - `*.test.ts` for tests
+  - `scratchpad.ts` for experimental code
+- `src/server.ts` to start the application
+- `package.json` for dependencies and scripts
+
+## scratchpad.ts Usage
+- Use `scratchpad.ts` for prototyping and testing snippets
+- Do not include `scratchpad.ts` in production code or tests
+- Run with `npm run tsx` or `npx tsx src/scratchpad.ts`
+
+## VSC Settings
+- Use the recommended settings for TypeScript and ESLint
+- Enable auto-format on save
+- Use the "Prettier - Code formatter" extension for consistent code style
+- Enable "ESLint" extension for linting feedback
+- Enable "Path Intellisense" extension for easier imports
+- Enable "Error Lens" extension for better error visibility
+- Enable "GitLens" extension for enhanced Git integration
+- Enable "vitest" extension for improved testing support
