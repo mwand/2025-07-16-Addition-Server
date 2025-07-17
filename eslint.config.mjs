@@ -1,5 +1,3 @@
-/* eslint import/no-extraneous-dependencies: "off" */
-
 import js from '@eslint/js';
 import tseslint from '@typescript-eslint/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
@@ -7,7 +5,7 @@ import tsParser from '@typescript-eslint/parser';
 export default [
   // Global ignores
   {
-    ignores: ['dist/*', 'node_modules/*', 'coverage/*', 'stryker-tmp/*', '*.js']
+    ignores: ['dist/*', 'node_modules/*', 'coverage/*', 'stryker-tmp/*', '*.js', '*.config.ts', '*.config.mjs']
   },
   
   // Base configuration for all files
@@ -39,9 +37,7 @@ export default [
       parser: tsParser,
       parserOptions: {
         ecmaVersion: 2022,
-        sourceType: 'module',
-        project: './tsconfig.json',
-        tsconfigRootDir: '.'
+        sourceType: 'module'
       }
     },
     plugins: {

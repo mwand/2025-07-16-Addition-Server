@@ -48,3 +48,11 @@ validate routes with zod
 - Enable "Error Lens" extension for better error visibility
 - Enable "GitLens" extension for enhanced Git integration
 - Enable "vitest" extension for improved testing support
+
+## AI Assistance
+- Remind me to commit after significant changes or every 1 hour, whichever comes first
+- Remind me to commit any time I replace a file completely.
+- Remind me to add .cursorrules every time I start a new editing session
+- Remind me to add .cursorrules if I ever lose .cursorrules from my context
+- Remind me to review and update .cursorrules regularly
+- Use the latest context from .cursorrules for all responses
