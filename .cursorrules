@@ -7,7 +7,7 @@ node.js
 vitest
 eslint
 stryker
-validate routes with zod
+
 
 ## Coding Standards
 - Use TypeScript with strict mode
@@ -31,7 +31,8 @@ validate routes with zod
   - `additionController.ts` for handling requests
   - `*.test.ts` for tests
   - `scratchpad.ts` for experimental code
-- `src/server.ts` to start the application
+  - `express.ts` for express app setup
+  - - `src/server.ts` to start the application
 - `package.json` for dependencies and scripts
 
 ## scratchpad.ts Usage

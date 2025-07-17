@@ -17,7 +17,14 @@
     "clean": "rimraf dist",
     "prebuild": "npm run clean"
   },
-  "keywords": ["typescript", "node", "express", "addition", "service", "controller"],
+  "keywords": [
+    "typescript",
+    "node",
+    "express",
+    "addition",
+    "service",
+    "controller"
+  ],
   "author": "",
   "license": "MIT",
   "devDependencies": {
@@ -26,12 +33,14 @@
     "@stryker-mutator/vitest-runner": "^8.0.0",
     "@types/express": "^4.17.21",
     "@types/node": "^20.11.5",
+    "@types/supertest": "^6.0.3",
     "@typescript-eslint/eslint-plugin": "^6.19.1",
     "@typescript-eslint/parser": "^6.19.1",
     "@vitest/coverage-v8": "^1.2.2",
     "@vitest/ui": "^1.2.2",
     "eslint": "^8.56.0",
     "rimraf": "^5.0.5",
+    "supertest": "^7.1.3",
     "tsx": "^4.7.0",
     "typescript": "^5.3.3",
     "vitest": "^1.2.2"
