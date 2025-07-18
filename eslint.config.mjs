@@ -48,16 +48,26 @@ export default [
       'no-unused-vars': 'off',
       
       // TypeScript-specific rules
-      '@typescript-eslint/no-unused-vars': ['error', { args: 'none', caughtErrors: 'none' }],
+      '@typescript-eslint/no-unused-vars': ['error', { 
+        args: 'all',
+        argsIgnorePattern: '^_',
+        caughtErrors: 'none' 
+      }],
       '@typescript-eslint/no-explicit-any': 'warn',
       '@typescript-eslint/no-var-requires': 'error',
       
-      // Naming conventions
+      // Naming conventions - allow underscore prefix for unused parameters
       '@typescript-eslint/naming-convention': [
         'error',
         {
           selector: 'variableLike',
-          format: ['camelCase']
+          format: ['camelCase'],
+          leadingUnderscore: 'allow'
+        },
+        {
+          selector: 'parameter',
+          format: ['camelCase'],
+          leadingUnderscore: 'allow'
         },
         {
           selector: 'typeLike',

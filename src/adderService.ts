@@ -8,19 +8,10 @@ export class AdderService {
    * @param firstNumber - The first number to add
    * @param secondNumber - The second number to add
    * @returns The sum of the two input numbers
-   * @throws Error if either parameter is not a finite number
+   * @assumes both parameters are finite numbers
+   * @unchecked - input validation is handled in the controller
    */
   public sum(firstNumber: number, secondNumber: number): number {
-    // coPilot suggested input validation, but it's commented out for now
-    // // Validate inputs to ensure they are finite numbers
-    // if (!Number.isFinite(firstNumber)) {
-    //   throw new Error('First parameter must be a finite number');
-    // }
-    
-    // if (!Number.isFinite(secondNumber)) {
-    //   throw new Error('Second parameter must be a finite number');
-    // }
-    
     return firstNumber + secondNumber;
   }
 }

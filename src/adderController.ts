@@ -19,9 +19,10 @@ export const getSum = (request: Request<{ i: string; j: string }>, response: Res
     response.status(400).send({ error: 'Invalid number parameters' });
     return;
   }
-  
-  try {
-    // Use the service to perform the business logic
+
+  // now that inputs are validated, proceed with addition
+
+  // Use the service to perform the business logic
     const result = adderService.sum(firstNumber, secondNumber);
 
     // Return successful response
@@ -30,9 +31,5 @@ export const getSum = (request: Request<{ i: string; j: string }>, response: Res
       secondNumber: secondNumber,
       sum: result
     });
-  } catch (error) {
-    // Handle service errors
-    const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
-    response.status(500).send({ error: errorMessage });
-  }
-};
+  } 
+  

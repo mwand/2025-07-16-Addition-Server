@@ -50,3 +50,8 @@ pids/
 
 # Optional eslint cache
 .eslintcache
+
+# Stryker reports
+reports/
+# Stryker temp
+stryker-tmp/

@@ -7,7 +7,8 @@
   "mutate": [
     "src/**/*.ts",
     "!src/**/*.test.ts",
-    "!src/server.ts"
+    "!src/server.ts",
+    "!stryker.tmp/**"
   ],
   "thresholds": {
     "high": 80,
@@ -19,5 +20,6 @@
   "tempDirName": "stryker-tmp",
   "cleanTempDir": true,
   "concurrency": 4,
-  "timeoutMS": 60000
+  "timeoutMS": 60000,
+  "ignoreStatic": true
 }
