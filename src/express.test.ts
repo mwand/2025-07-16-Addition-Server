@@ -18,15 +18,67 @@ describe('Express App', () => {
 
   describe('Health Check Endpoints', () => {
 
-    it('should return 404 for empty endpoint', async () => {
+    it('should return 404 for root endpoint', async () => {
       const response = await request(app)
-        .get('')
+        .get('/')
         .expect(404);
-
       expect(response.body).toEqual({
-        message: 'This is an empty endpoint'
+        error: 'Not Found',
+        message: `Route GET / not found`
       });
     });
+
+    // This test was suggested by AI to catch the mutant
+    it('should NOT call getSum controller for root endpoint', async () => {
+      // This test specifically catches the mutant where the /sum route is replaced with ""
+      // The key insight: if app.get("", getSum) is used, then the root endpoint might
+      // either call getSum OR still return 404 depending on Express behavior.
+      // We need to test both conditions to ensure we catch the mutant.
+      
+      const response = await request(app)
+        .get('/')
+        .expect(res => {
+          // The mutant could cause either:
+          // 1. getSum to be called (which would be wrong)
+          // 2. Still return 404 if Express ignores empty string routes
+          
+          // First, verify getSum was NOT called regardless of response
+          expect(mockGetSum).not.toHaveBeenCalled();
+          
+          // Then verify we get the expected 404 response
+          expect(res.status).toBe(404);
+        });
+
+      expect(response.body).toEqual({
+        error: 'Not Found',
+        message: 'Route GET / not found'
+      });
+    });
+
+    // This test was also suggested by AI to catch the mutant
+    it('should NOT call getSum for any non-sum routes', async () => {
+      // Test multiple paths that should NOT trigger getSum, including specific mutant cases
+      const pathsToTest = ['/', '/health', '/random'];
+      
+      for (const path of pathsToTest) {
+        vi.clearAllMocks(); // Clear previous calls
+        
+        // Use a timeout to prevent hanging if getSum is incorrectly called
+        const response = await request(app)
+          .get(path)
+          .timeout(1000);
+        
+        // Verify getSum was never called for any of these paths
+        expect(mockGetSum).not.toHaveBeenCalled();
+        
+        // Specifically verify we get 404 for root path (catches the empty string mutant)
+        if (path === '/') {
+          expect(response.status).toBe(404);
+          expect(response.body.error).toBe('Not Found');
+        }
+      }
+    });
+
 
     it('should return healthy status on /health endpoint', async () => {
       const response = await request(app)
@@ -40,22 +92,49 @@ describe('Express App', () => {
       expect(new Date(response.body.timestamp)).toBeInstanceOf(Date);
     });
 
-    // it('should return healthy status on root endpoint', async () => {
-    //   const response = await request(app)
-    //     .get('/')
-    //     .expect(200);
-
-    //   expect(response.body).toEqual({
-    //     status: 'healthy',
-    //     timestamp: expect.any(String)
-    //   });
-    //   expect(new Date(response.body.timestamp)).toBeInstanceOf(Date);
-    // });
-
-  
-
-
+    
   describe('Addition Endpoint', () => {
+    it('should have exactly the route /sum/:i/:j and no other sum-related routes', async () => {
+      // This test ensures the specific route pattern exists and catches mutations to empty string
+      mockGetSum.mockImplementation((req, res) => {
+        res.status(200).json({ 
+          route: req.route?.path,
+          params: req.params 
+        });
+      });
+
+      // Test that the correct route works
+      const validResponse = await request(app)
+        .get('/sum/1/2')
+        .expect(200);
+
+      expect(validResponse.body.route).toBe('/sum/:i/:j');
+      expect(validResponse.body.params).toEqual({ i: '1', j: '2' });
+      expect(mockGetSum).toHaveBeenCalledTimes(1);
+
+      vi.clearAllMocks();
+
+      // Test that root path does NOT trigger the sum handler
+      await request(app)
+        .get('/')
+        .expect(404);
+
+      expect(mockGetSum).not.toHaveBeenCalled();
+
+      // Test that incomplete sum paths don't work
+      await request(app)
+        .get('/sum')
+        .expect(404);
+
+      expect(mockGetSum).not.toHaveBeenCalled();
+
+      await request(app)
+        .get('/sum/')
+        .expect(404);
+
+      expect(mockGetSum).not.toHaveBeenCalled();
+    });
+
     it('should call getSum controller for /sum/:i/:j route', async () => {
       // Mock the controller response
       mockGetSum.mockImplementation((_, response) => {
@@ -197,6 +276,36 @@ describe('Express App', () => {
       expect(typeof app.post).toBe('function');
       expect(typeof app.use).toBe('function');
       expect(typeof app.listen).toBe('function');
+    });
+
+    it('should register the correct routes and not register empty string routes', () => {
+      const app = createApp();
+      
+      // Get the router layer stack to inspect registered routes
+      const routes = app._router.stack
+        .filter((layer: any) => layer.route)
+        .map((layer: any) => ({
+          path: layer.route.path,
+          methods: Object.keys(layer.route.methods)
+        }));
+
+      // Should have the sum route
+      const sumRoute = routes.find((route: any) => route.path === '/sum/:i/:j');
+      expect(sumRoute).toBeDefined();
+      expect(sumRoute?.methods).toContain('get');
+
+      // Should have the health route
+      const healthRoute = routes.find((route: any) => route.path === '/health');
+      expect(healthRoute).toBeDefined();
+      expect(healthRoute?.methods).toContain('get');
+
+      // Should NOT have empty string route
+      const emptyRoute = routes.find((route: any) => route.path === '');
+      expect(emptyRoute).toBeUndefined();
+
+      // Should NOT have root route 
+      const rootRoute = routes.find((route: any) => route.path === '/');
+      expect(rootRoute).toBeUndefined();
     });
   });
 }); 

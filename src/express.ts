@@ -14,9 +14,9 @@ export const createApp = (): express.Application => {
   app.use(express.json());
 
    // // empty endpoint
-  app.get('', (_req, res) => {
-    res.status(404).json({ message: 'This is an empty endpoint' });
-  });
+  // app.get('', (_req, res) => {
+  //   res.status(404).json({ message: 'This is an empty endpoint' });
+  // });
 
   // // Health check endpoint
   // app.get('/', (_req, res) => {
@@ -26,16 +26,10 @@ export const createApp = (): express.Application => {
   // Health check endpoint
   app.get('/health', (_req, res) => {
     res.status(200).json({ status: 'healthy', timestamp: new Date().toISOString() });
-  });
-
- 
-
- 
+  }); 
 
   // Addition endpoint
-  app.get('/sum/:i/:j', getSum);
-
- 
+  app.get('/sum/:i/:j', getSum); 
   
   app.use((req, res) => {
     res.status(404).json({
