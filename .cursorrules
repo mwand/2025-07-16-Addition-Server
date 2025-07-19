@@ -35,6 +35,15 @@ stryker
   - - `src/server.ts` to start the application
 - `package.json` for dependencies and scripts
 
+## Development
+- Develop each layer independently
+- Write tests for all new functionality
+- Use `npm run lint` to check code style
+- Use `npm run mutation` to run mutation tests with Stryker
+- Develop the layers in the order: service → controller → server.
+- Test each layer independently before integrating.
+
+
 ## scratchpad.ts Usage
 - Use `scratchpad.ts` for prototyping and testing snippets
 - Do not include `scratchpad.ts` in production code or tests
