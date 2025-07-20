@@ -7,6 +7,8 @@ node.js
 vitest
 eslint
 stryker
+vite
+
 
 
 ## Coding Standards
@@ -48,6 +50,12 @@ stryker
 - Use `scratchpad.ts` for prototyping and testing snippets
 - Do not include `scratchpad.ts` in production code or tests
 - Run with `npm run tsx` or `npx tsx src/scratchpad.ts`
+
+## React
+- Include React only if explicitly requested
+- Use functional components and hooks if React is included
+- Follow best practices for state management and component design
+- Use chakra-ui for UI components if React is included
 
 ## VSC Settings
 - Use the recommended settings for TypeScript and ESLint

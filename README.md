@@ -1,13 +1,106 @@
-# Addition Server
+# Addition Server - Full Stack Application
 
-A simple TypeScript Node.js server that demonstrates the service-controller architecture pattern. This project illustrates clean separation of concerns between business logic and request handling.
+A simple full-stack application demonstrating service-controller architecture with React frontend and Express.js backend.
 
-## Features
+## 🏗️ Architecture
 
-- **Service-Controller Architecture**: Clean separation between business logic and HTTP handling
-- **TypeScript**: Full type safety with strict mode enabled
-- **Input Validation**: Request validation using Zod schemas
-- **Testing**: Comprehensive test suite with Vitest
+### Backend (Express.js + TypeScript)
+- **Service Layer**: `src/adderService.ts` - Business logic for addition operations
+- **Controller Layer**: `src/adderController.ts` - HTTP request handling
+- **Express App**: `src/express.ts` - Express application setup
+- **Server**: `src/server.ts` - Server startup and configuration
+
+### Frontend (React + TypeScript + Vite)
+- **React App**: Beautiful calculator interface using Chakra UI
+- **TypeScript**: Strict typing for better development experience
+- **Vite**: Fast development server and build tool
+
+## 🚀 Quick Start
+
+### Prerequisites
+- Node.js (v18 or higher)
+- npm
+
+### Installation
+```bash
+# Install backend dependencies
+npm install
+
+# Install frontend dependencies
+npm run frontend:install
+```
+
+### Development Mode
+
+#### Option 1: Run both frontend and backend together
+```bash
+npm run dev:all
+```
+
+#### Option 2: Run separately
+```bash
+# Terminal 1: Start backend (localhost:3000)
+npm run dev
+
+# Terminal 2: Start frontend (localhost:5173)
+npm run frontend:dev
+```
+
+### Production Build
+```bash
+# Build both frontend and backend
+npm run build:all
+
+# Start production server
+npm start
+```
+
+## 📡 API Endpoints
+
+- `GET /health` - Health check endpoint
+- `GET /sum/:i/:j` - Addition endpoint (returns sum of i and j)
+- `GET /` - Returns 404 (root not available)
+
+### Example API Usage
+```bash
+# Health check
+curl http://localhost:3000/health
+
+# Addition
+curl http://localhost:3000/sum/5/3
+# Returns: {"firstNumber":5,"secondNumber":3,"sum":8}
+```
+
+## 🎨 Frontend Features
+
+- **Beautiful UI**: Clean, modern interface using Chakra UI
+- **Real-time Server Status**: Shows connection status to backend
+- **Form Validation**: Client-side validation for number inputs
+- **Error Handling**: Graceful error handling with user-friendly messages
+- **Responsive Design**: Works on desktop and mobile devices
+
+## 🧪 Testing
+
+### Backend Tests
+```bash
+# Run all tests
+npm test
+
+# Run tests with coverage
+npm run test:coverage
+
+# Run mutation testing
+npm run mutation
+
+# Run linting
+npm run lint
+```
+
+### Frontend Tests
+```bash
+cd frontend
+npm test
+```
 - **Mutation Testing**: Code quality assurance with Stryker
 - **Linting**: Code quality enforcement with ESLint
 - **Functional Programming**: Emphasizes functional programming patterns
