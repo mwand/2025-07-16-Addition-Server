@@ -1,10 +1,10 @@
 // illustrates 'key' attribute
-import * as React from 'react';
+// import * as React from 'react';
 import {
     Table, Th, Tbody, Tr,
 } from '@chakra-ui/react';
 
-import { ToDoItem } from './types'
+import { type ToDoItem } from './types'
 import { ToDoItemDisplay } from './ToDoItemDisplay'
 
 export function ToDoListDisplay(props: { items: ToDoItem[] , onDelete:(key:number) => void }) {

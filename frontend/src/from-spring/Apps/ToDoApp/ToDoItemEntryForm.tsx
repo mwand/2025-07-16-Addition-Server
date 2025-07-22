@@ -10,10 +10,10 @@ import {
   Text,
   VStack, Tr, Td, Table, Tbody, TableContainer, HStack
 } from '@chakra-ui/react';
-import { AiFillDelete, AiFillHeart, AiOutlineDelete, AiOutlineHeart } from 'react-icons/ai';
-import { nanoid } from 'nanoid';
+// import { AiFillDelete, AiFillHeart, AiOutlineDelete, AiOutlineHeart } from 'react-icons/ai';
+// import { nanoid } from 'nanoid';
 
-import { ToDoItem } from './types'
+import { type ToDoItem } from './types'
 
 export function ToDoItemEntryForm (props: {onAdd:(title:string, priority:string)=>void}) {
     // state variables for this form
