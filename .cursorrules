@@ -74,3 +74,8 @@ vite
 - Remind me to add .cursorrules if I ever lose .cursorrules from my context
 - Remind me to review and update .cursorrules regularly
 - Use the latest context from .cursorrules for all responses
+
+## Testing
+- Use `vitest` for unit tests
+- If a port is busy, don't use a different port for testing; use `npx kill-port` to kill the port, then try again.
+- 

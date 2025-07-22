@@ -21,7 +21,7 @@ export function ToDoItemEntryForm (props: {onAdd:(title:string, priority:string)
     const [priority,setPriority] = useState("")
     const [key, setKey] = useState(1)     // key is assigned when the item is created.
   
-    function handleClick(event) {
+    function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
       event.preventDefault()  // magic, sorry.
       
       if (title === '') {return}   // ignore blank button presses

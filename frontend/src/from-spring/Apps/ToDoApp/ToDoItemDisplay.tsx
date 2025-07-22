@@ -13,7 +13,7 @@ import {
 import { AiFillDelete, AiFillHeart, AiOutlineDelete, AiOutlineHeart } from 'react-icons/ai';
 import { nanoid } from 'nanoid';
 
-import { ToDoItem } from './types'
+import { type ToDoItem } from './types'
 
 export function ToDoItemDisplay (props: {item: ToDoItem, key:number, onDelete:(key:number) => void} ) {
     const [item, setItem] = useState(props.item)

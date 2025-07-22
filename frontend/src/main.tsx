@@ -16,4 +16,4 @@ createRoot(document.getElementById('root')!).render(
       <h1>Hello Again!</h1>
       <App />
     </ChakraProvider>
-  </StrictMode>
+  </StrictMode>)
