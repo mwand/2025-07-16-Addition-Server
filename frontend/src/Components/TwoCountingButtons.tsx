@@ -1,6 +1,5 @@
 // demonstrates passing props down, passing events up
 
-import * as React from 'react';
 import { useState } from 'react';
 import {
   Box,
