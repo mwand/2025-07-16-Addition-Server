@@ -13,23 +13,19 @@ export const createApp = (): express.Application => {
   // Middleware for parsing JSON requests
   app.use(express.json());
 
-   // // empty endpoint
-  // app.get('', (_req, res) => {
-  //   res.status(404).json({ message: 'This is an empty endpoint' });
-  // });
-
-  // // Health check endpoint
-  // app.get('/', (_req, res) => {
-  //   res.status(200).json({ status: 'healthy', timestamp: new Date().toISOString() });
-  // });
-
   // Health check endpoint
   app.get('/health', (_req, res) => {
     res.status(200).json({ status: 'healthy', timestamp: new Date().toISOString() });
   }); 
-
   // Addition endpoint
-  app.get('/sum/:i/:j', getSum); 
+  app.get('/sum/:i/:j', getSum);
+  // app.get('/foo/:x/:y', (req, res) => {
+  //   const { x, y } = req.params;
+  //   // Do something with x and y
+  // });
+
+  // put this after the other routes
+  app.use(express.static('frontend/dist'));
   
   app.use((req, res) => {
     res.status(404).json({

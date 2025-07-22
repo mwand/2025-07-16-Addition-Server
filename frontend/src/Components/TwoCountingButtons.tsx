@@ -7,7 +7,7 @@ import {
 } from '@chakra-ui/react';
 
 // create two CountingButtons, and keep track of the total count.
-import { CountingButton } from './CountingButton';
+import CountingButton from './CountingButton';
 
 export default function App() {
 

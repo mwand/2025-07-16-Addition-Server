@@ -33,6 +33,7 @@ export default function ToDoApp () {
     <VStack>
       <Heading>TODO List</Heading>
       <ToDoItemEntryForm onAdd={handleAdd}/>
+      <ToDoListDisplay items={todoList} onDelete={handleDelete}/>
     
     </VStack>
   )

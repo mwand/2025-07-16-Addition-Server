@@ -1,6 +1,6 @@
-import * as React from 'react';
-import { ChakraProvider,
-  Box, Heading,
+// import * as React from 'react';
+import { 
+  Heading,
   VStack
 } from '@chakra-ui/react';
 

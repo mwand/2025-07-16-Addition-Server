@@ -1,12 +1,12 @@
 // import * as React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Box, Button, VStack } from "@chakra-ui/react";
 
 
 export default function CountingButton(props: {
-  name: string;        // display name of the button
+  name: string; // display name of the button
   globalCount: number; // global count from parent
-  onClick: () => void; // event handler to call when clicked
+  onClick: (arg0: number) => void; // event handler to call when clicked
 }) {
   // useState persists when you change the code,
   // resets when you hit the reload button
@@ -14,7 +14,16 @@ export default function CountingButton(props: {
 
   function handleClick() {
     setLocalCount(localCount + 1);
-    props.onClick(); // propagate to parent
+  }
+
+  // when local count changes, notify the parent
+  useEffect(() => {
+    console.log('running effect', props.name, localCount)
+    props.onClick(localCount);
+  }, [localCount]);
+
+  function handleReset() {
+    setLocalCount(0);
   }
 
   return (
@@ -22,12 +31,9 @@ export default function CountingButton(props: {
       <Box>
         local count for {props.name} = {localCount}
       </Box>
-      <Box> 
-        globalCount = {props.globalCount}
-      </Box>
-      <Button onClick={handleClick}>
-        Increment {props.name}!
-      </Button>
+      <Box>globalCount = {props.globalCount}</Box>
+      <Button onClick={handleClick}>Increment {props.name}!</Button>
+      <Button onClick={handleReset}>Reset</Button>
     </VStack>
   );
 }
