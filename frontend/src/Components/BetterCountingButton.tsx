@@ -12,18 +12,23 @@ export default function CountingButton(props: {
   // resets when you hit the reload button
   const [localCount, setLocalCount] = useState(0);
 
+  // update local count and notify the parent with new value
   function handleClick() {
-    setLocalCount(localCount + 1);
+    const newLocalCount = localCount+1
+    setLocalCount(newLocalCount);
+    props.onClick(newLocalCount)
   }
 
   // when local count changes, notify the parent
-  useEffect(() => {
-    console.log('running effect', props.name, localCount)
-    props.onClick(localCount);
-  }, [localCount]);
+  // this doesn't work-- it tells the parent to increment too often
+  // useEffect(() => {
+  //   console.log('running effect', props.name, localCount)
+  //   props.onClick(localCount);
+  // }, [localCount]);
 
   function handleReset() {
     setLocalCount(0);
+    props.onClick(0)
   }
 
   return (

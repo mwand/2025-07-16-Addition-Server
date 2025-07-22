@@ -33,14 +33,14 @@ export default function App() {
   }
 
   
-  function incrementLocalCountA() {
-    setLocalCountA(localCountA + 1)
+  function updateLocalCountA(newCount:number) {
+    setLocalCountA(newCount)
    // newrecalculateGlobalCount()
   }
 
-  function incrementLocalCountB() {
-    setLocalCountB(localCountB + 1)
-  //  newrecalculateGlobalCount()
+  function updateLocalCountB(newCount:number) {
+    setLocalCountB(newCount)
+  
   }
   
 
@@ -64,12 +64,12 @@ export default function App() {
       <CountingButton
         name="Button A"
          globalCount={globalCount}
-        onClick={incrementLocalCountA}
+        onClick={updateLocalCountA}
       />
       <CountingButton
         name="Button B"
         globalCount={globalCount}
-        onClick={incrementLocalCountB}
+        onClick={updateLocalCountB}
       />
     </VStack>
   );
