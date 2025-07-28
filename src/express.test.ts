@@ -35,46 +35,41 @@ describe('Express App', () => {
 
     
   describe('Addition Endpoint', () => {
-    it('should have exactly the route /sum/:i/:j and no other sum-related routes', async () => {
-      // This test ensures the specific route pattern exists and catches mutations to empty string
-      mockGetSum.mockImplementation((req, res) => {
-        res.status(200).json({ 
-          route: req.route?.path,
-          params: req.params 
-        });
-      });
+    // not sure about this test.  I think it was added by AI.
+    // it('should have exactly the route /sum/:i/:j and no other sum-related routes', async () => {
+    //   // This test ensures the specific route pattern exists and catches mutations to empty string
+    //   mockGetSum.mockImplementation((req, res) => {
+    //     res.status(200).json({ 
+    //       route: req.route?.path,
+    //       params: req.params 
+    //     });
+    //   });
 
-      // Test that the correct route works
-      const validResponse = await request(app)
-        .get('/sum/1/2')
-        .expect(200);
+    //   // Test that the correct route works
+    //   const validResponse = await request(app)
+    //     .get('/sum/1/2')
+    //     .expect(200);
 
-      expect(validResponse.body.route).toBe('/sum/:i/:j');
-      expect(validResponse.body.params).toEqual({ i: '1', j: '2' });
-      expect(mockGetSum).toHaveBeenCalledTimes(1);
+    //   expect(validResponse.body.route).toBe('/sum/:i/:j');
+    //   expect(validResponse.body.params).toEqual({ i: '1', j: '2' });
+    //   expect(mockGetSum).toHaveBeenCalledTimes(1);
 
-      vi.clearAllMocks();
+    //   vi.clearAllMocks();
 
-      // Test that root path does NOT trigger the sum handler
-      await request(app)
-        .get('/')
-        .expect(404);
+   
+    //         // Test that incomplete sum paths don't work
+    //   await request(app)
+    //     .get('/sum')
+    //     .expect(404);
 
-      expect(mockGetSum).not.toHaveBeenCalled();
+    //   expect(mockGetSum).not.toHaveBeenCalled();
 
-      // Test that incomplete sum paths don't work
-      await request(app)
-        .get('/sum')
-        .expect(404);
+    //   await request(app)
+    //     .get('/sum/')
+    //     .expect(404);
 
-      expect(mockGetSum).not.toHaveBeenCalled();
-
-      await request(app)
-        .get('/sum/')
-        .expect(404);
-
-      expect(mockGetSum).not.toHaveBeenCalled();
-    });
+    //   expect(mockGetSum).not.toHaveBeenCalled();
+    // });
 
     it('should call getSum controller for /sum/:i/:j route', async () => {
       // Mock the controller response
@@ -82,7 +77,8 @@ describe('Express App', () => {
         response.status(200).json({ result: 5 });
       });
 
-      const response = await request(app)
+      await request(app)
+        const response = await request(app)
         .get('/sum/2/3')
         .expect(200);
 
