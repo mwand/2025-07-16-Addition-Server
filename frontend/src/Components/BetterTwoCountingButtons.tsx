@@ -45,7 +45,7 @@ export default function App() {
   
 
   useEffect(() => {
-    const health = fetch("/health")
+  fetch("/health")
       .then((response) => {
         return response.json();
       })
@@ -58,7 +58,7 @@ export default function App() {
       <Box border="1px" padding="1">  
         Total count (from backend) = {globalCount}
       </Box>
-      <Box>
+      <Box border="1px" padding="1">
         Total count (from frontend) = {sumLocalCounts}
       </Box>
       <CountingButton

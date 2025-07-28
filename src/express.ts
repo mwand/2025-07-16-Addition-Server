@@ -19,12 +19,8 @@ export const createApp = (): express.Application => {
   }); 
   // Addition endpoint
   app.get('/sum/:i/:j', getSum);
-  // app.get('/foo/:x/:y', (req, res) => {
-  //   const { x, y } = req.params;
-  //   // Do something with x and y
-  // });
-
-  // put this after the other routes
+  
+    // put this after the other routes
   app.use(express.static('frontend/dist'));
   
   app.use((req, res) => {
