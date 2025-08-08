@@ -13,7 +13,7 @@
     "// --- DEVELOPMENT ---": "",
     "dev": "tsx watch src/server.ts",
     "dev:frontend": "cd frontend && npm run dev",
-    "dev:fullstack": "concurrently \"npm run dev\" \"npm run dev:frontend\"",
+    "dev:all": "concurrently \"npm run dev\" \"npm run dev:frontend\"",
     "dev:scratchpad": "tsx src/scratchpad.ts",
     "// --- TESTING ---": "",
     "test": "vitest --watch=false",
