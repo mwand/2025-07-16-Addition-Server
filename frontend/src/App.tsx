@@ -1,19 +1,7 @@
 // App.tsx main switcher, called from ./main.tsx
+// if you want to run some other app, import it as App here.
 
-import App from './Components/BetterTwoCountingButtons.tsx'
-// import App from './from-spring/Apps/ToDoApp/ToDoApp.tsx'
-// import App from './Components/HelloWorld.tsx'
-
-/*
-export default function App() {
-    return (
-        <div>
-        <h1>Welcome to My App</h1>
-        <p>This is a simple React application.</p>
-        </div>
-    )
-}
-*/
+import App from './Components/TwoCountingButtons.tsx'
 
 export default function NewApp() {
   return (
