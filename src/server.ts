@@ -12,7 +12,7 @@ const HOST = '0.0.0.0'; // not 'localhost'
  */
 
 /**
- * Start the Express server
+ * Start the Express server 
  */
 const startServer = (): void => {
   const app = createApp();
