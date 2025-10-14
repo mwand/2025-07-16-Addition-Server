@@ -15,6 +15,9 @@ To deploy to Render.com,
 4. Set render's build command to `npm install && npm run build:all`
 5. Set render's start command to `npm start`
 
+The most recent deployment is at https://two025-07-16-addition-server.onrender.com/
+(this may be out of date, and it may take a while to start up if the server has been idle)
+
 ## Introduction
 
 For an introduction to and explanation of the overall structure, go to [text](https://docs.google.com/document/d/1twG6vNyQ5K2-l73YbaDWXGivGXS0AvKObkN_c2AAtjM/edit?pli=1&tab=t.0#heading=h.bk1yda9o0cmi) .
