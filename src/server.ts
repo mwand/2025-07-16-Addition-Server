@@ -1,6 +1,6 @@
 import { createApp } from './express.js';
 
-const PORT = process.env['PORT'] || 3000;
+const PORT = parseInt(process.env['PORT'] || '3000', 10);
 const HOST = '0.0.0.0'; // not 'localhost'
 
 /** Usage:
