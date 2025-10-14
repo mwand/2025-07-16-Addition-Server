@@ -2,6 +2,19 @@
 
 A simple full-stack application demonstrating service-controller architecture with React frontend and Express.js backend.
 
+## Getting Started
+
+To run in development mode, say `npm run dev:all` and open [http://localhost:5173](http://localhost:5173) (or whatever Vite tells you).
+
+To build for production, say `npm run build:all` and then `npm start`
+
+To deploy to Render.com,
+1. Set the branch to `main`
+2. Set the root directory to `/` (the project root)
+3. Set create an environment variable HOST and set it to `0.0.0.0`
+4. Set render's build command to `npm install && npm run build:all`
+5. Set render's start command to `npm start`
+
 ## Introduction
 
 For an introduction to and explanation of the overall structure, go to [text](https://docs.google.com/document/d/1twG6vNyQ5K2-l73YbaDWXGivGXS0AvKObkN_c2AAtjM/edit?pli=1&tab=t.0#heading=h.bk1yda9o0cmi) .

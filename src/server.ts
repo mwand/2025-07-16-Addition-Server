@@ -1,7 +1,7 @@
 import { createApp } from './express.js';
 
 const PORT = parseInt(process.env['PORT'] || '3000', 10);
-const HOST = '0.0.0.0'; // not 'localhost'
+const HOST = process.env['HOST'] || 'localhost';
 
 /** Usage:
  * start with npx tsx src/server.ts
