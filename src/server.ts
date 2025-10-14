@@ -1,7 +1,7 @@
 import { createApp } from './express.js';
 
-const PORT = 3000;
-const HOST = 'localhost';
+const PORT = parseInt(process.env['PORT'] || '3000', 10);
+const HOST = '0.0.0.0'; // not 'localhost'
 
 /** Usage:
  * start with npx tsx src/server.ts
@@ -12,7 +12,7 @@ const HOST = 'localhost';
  */
 
 /**
- * Start the Express server
+ * Start the Express server 
  */
 const startServer = (): void => {
   const app = createApp();

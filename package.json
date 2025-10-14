@@ -24,8 +24,15 @@
     "// --- CODE QUALITY ---": "",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "// --- SETUP ---": "",
-    "setup:frontend": "cd frontend && npm install"
+    "mutation": "stryker run",
+    "clean": "rimraf dist",
+    "prebuild": "npm run clean",
+    "frontend:dev": "cd frontend && npm run dev",
+    "frontend:build": "cd frontend && npm run build",
+    "frontend:install": "cd frontend && npm install",
+    "dev:all": "concurrently \"npm run dev\" \"npm run frontend:dev\"",
+    "build:all": "npm run build && npm run frontend:build",
+    "build:render": "cd frontend && npm install && npm run build && cd .. && tsc"
   },
   "keywords": [
     "typescript",
@@ -57,6 +64,8 @@
     "vitest": "^1.2.2"
   },
   "dependencies": {
+    "@chakra-ui/react": "^3.27.1",
+    "@vitejs/plugin-react": "^5.0.4",
     "express": "^4.18.2",
     "zod": "^3.22.4"
   }
