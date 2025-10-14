@@ -52,6 +52,7 @@
     "vitest": "^1.2.2"
   },
   "dependencies": {
+    "@chakra-ui/react": "^3.27.1",
     "express": "^4.18.2",
     "zod": "^3.22.4"
   }
