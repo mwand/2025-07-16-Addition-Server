@@ -1,12 +1,12 @@
 import { describe, it, expect, vi, beforeEach, type Mock } from 'vitest';
-import { Request, Response } from 'express';
+import { type Request, type Response } from 'express';
 import { getSum } from './adderController';
 
 // Mock the AdderService
 vi.mock('./adderService', () => ({
   AdderService: vi.fn().mockImplementation(() => ({
-    sum: vi.fn((a: number, b: number) => a + b)
-  }))
+    sum: vi.fn((a: number, b: number) => a + b),
+  })),
 }));
 
 describe('AdderController', () => {
@@ -18,17 +18,17 @@ describe('AdderController', () => {
   beforeEach(() => {
     mockSend = vi.fn();
     mockStatus = vi.fn();
-    
+
     // Create a mock response that returns itself for chaining
     mockResponse = {
       send: mockSend,
-      status: mockStatus
+      status: mockStatus,
     };
-    
+
     // Configure the mocks to return the response object for method chaining
     mockSend.mockReturnValue(mockResponse);
     mockStatus.mockReturnValue(mockResponse);
-    
+
     mockRequest = {};
   });
 
@@ -41,7 +41,7 @@ describe('AdderController', () => {
       expect(mockSend).toHaveBeenCalledWith({
         firstNumber: 5,
         secondNumber: 3,
-        sum: 8
+        sum: 8,
       });
     });
 
@@ -53,7 +53,7 @@ describe('AdderController', () => {
       expect(mockSend).toHaveBeenCalledWith({
         firstNumber: -2,
         secondNumber: 3,
-        sum: 1
+        sum: 1,
       });
     });
 
@@ -65,7 +65,7 @@ describe('AdderController', () => {
       expect(mockSend).toHaveBeenCalledWith({
         firstNumber: 2.5,
         secondNumber: 1.5,
-        sum: 4
+        sum: 4,
       });
     });
 
@@ -75,7 +75,9 @@ describe('AdderController', () => {
       getSum(mockRequest as Request<{ i: string; j: string }>, mockResponse as Response);
 
       expect(mockStatus).toHaveBeenCalledWith(400);
-      expect(mockSend).toHaveBeenCalledWith({ error: 'Invalid number parameters' });
+      expect(mockSend).toHaveBeenCalledWith({
+        error: 'Invalid number parameters',
+      });
     });
 
     it('should return 400 for invalid second parameter', () => {
@@ -84,7 +86,9 @@ describe('AdderController', () => {
       getSum(mockRequest as Request<{ i: string; j: string }>, mockResponse as Response);
 
       expect(mockStatus).toHaveBeenCalledWith(400);
-      expect(mockSend).toHaveBeenCalledWith({ error: 'Invalid number parameters' });
+      expect(mockSend).toHaveBeenCalledWith({
+        error: 'Invalid number parameters',
+      });
     });
 
     it('should return 400 for missing parameters', () => {
@@ -93,7 +97,9 @@ describe('AdderController', () => {
       getSum(mockRequest as Request<{ i: string; j: string }>, mockResponse as Response);
 
       expect(mockStatus).toHaveBeenCalledWith(400);
-      expect(mockSend).toHaveBeenCalledWith({ error: 'Invalid number parameters' });
+      expect(mockSend).toHaveBeenCalledWith({
+        error: 'Invalid number parameters',
+      });
     });
   });
 });
