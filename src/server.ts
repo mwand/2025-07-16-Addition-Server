@@ -1,4 +1,4 @@
-import { createApp } from './express.js';
+import { createApp } from './express.ts';
 
 const PORT = parseInt(process.env['PORT'] || '3000', 10);
 const HOST = '0.0.0.0'; // not 'localhost'
@@ -12,11 +12,11 @@ const HOST = '0.0.0.0'; // not 'localhost'
  */
 
 /**
- * Start the Express server 
+ * Start the Express server
  */
 const startServer = (): void => {
   const app = createApp();
-  
+
   const server = app.listen(PORT, HOST, () => {
     // eslint-disable-next-line no-console
     console.log(`🚀 Server running at http://${HOST}:${PORT}`);
@@ -30,8 +30,8 @@ const startServer = (): void => {
   const gracefulShutdown = (signal: string): void => {
     // eslint-disable-next-line no-console
     console.log(`\n${signal} received. Shutting down gracefully...`);
-    
-    server.close((err) => {
+
+    server.close(err => {
       if (err) {
         // eslint-disable-next-line no-console
         console.error('Error during server shutdown:', err);
@@ -50,7 +50,10 @@ const startServer = (): void => {
 
 // Start the server if this file is run directly
 // Check if this module is the main module being executed
-if (process.argv[1] && process.argv[1].endsWith('server.ts') || process.argv[1] && process.argv[1].endsWith('server.js')) {
+if (
+  (process.argv[1] && process.argv[1].endsWith('server.ts')) ||
+  (process.argv[1] && process.argv[1].endsWith('server.js'))
+) {
   startServer();
 }
 

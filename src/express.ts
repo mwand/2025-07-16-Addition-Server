@@ -1,7 +1,5 @@
 import express from 'express';
-import { getSum } from './adderController.js';
-
-
+import { getSum } from './adderController.ts';
 
 /**
  * Creates and configures the Express application
@@ -16,29 +14,31 @@ export const createApp = (): express.Application => {
   // Health check endpoint
   app.get('/health', (_req, res) => {
     res.status(200).json({ status: 'healthy', timestamp: new Date().toISOString() });
-  }); 
+  });
   // Addition endpoint
   app.get('/sum/:i/:j', getSum);
-  
-    // put this after the other routes
+
+  // put this after the other routes
   app.use(express.static('frontend/dist'));
-  
+
   app.use((req, res) => {
     res.status(404).json({
       error: 'Not Found',
-      message: `Route ${req.method} ${req.originalUrl} not found`
+      message: `Route ${req.method} ${req.originalUrl} not found`,
     });
   });
 
   // Global error handler
-  app.use((err: Error, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
-    // eslint-disable-next-line no-console
-    console.error('Unhandled error:', err);
-    res.status(500).json({ 
-      error: 'Internal Server Error', 
-      message: 'An unexpected error occurred' 
-    });
-  });
+  app.use(
+    (err: Error, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
+      // eslint-disable-next-line no-console
+      console.error('Unhandled error:', err);
+      res.status(500).json({
+        error: 'Internal Server Error',
+        message: 'An unexpected error occurred',
+      });
+    },
+  );
 
   return app;
 };

@@ -1,89 +1,117 @@
-import js from '@eslint/js';
-import tseslint from '@typescript-eslint/eslint-plugin';
-import tsParser from '@typescript-eslint/parser';
+import { defineConfig, globalIgnores } from "eslint/config";
+import js from "@eslint/js";
+import tseslint from "typescript-eslint";
+import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended";
+import eslintPluginImport from "eslint-plugin-import";
 
-export default [
-  // Global ignores
+export default defineConfig([
+  globalIgnores([
+    "build/",
+    "dist/",
+    "frontend/",
+    ".stryker-tmp/",
+    "coverage/",
+    "eslint.config.mjs",
+  ]),
   {
-    ignores: ['dist/*', 'node_modules/*', 'coverage/*', 'stryker-tmp/*', '*.js', '*.config.ts', '*.config.mjs']
-  },
-  
-  // Base configuration for all files
-  {
-    files: ['**/*.{js,mjs,cjs,ts}'],
-    languageOptions: {
-      ecmaVersion: 2022,
-      sourceType: 'module'
+    files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"],
+    extends: [
+      js.configs.recommended,
+      eslintPluginImport.flatConfigs.recommended,
+      eslintPluginImport.flatConfigs.typescript,
+    ],
+    settings: {
+      "import/resolver": { typescript: true },
     },
-    ...js.configs.recommended,
     rules: {
-      // Functional programming preferences
-      'prefer-const': 'error',
-      'no-var': 'error',
-      'prefer-arrow-callback': 'error',
-      
-      // Code style
-      'eqeqeq': 'error',
-      'curly': 'error',
-      'no-console': 'warn',
-      'no-unused-vars': ['error', { args: 'none', caughtErrors: 'none' }]
-    }
+      "import/no-amd": "error",
+      "import/no-commonjs": "error",
+      "import/no-empty-named-blocks": "error",
+      "import/no-extraneous-dependencies": [
+        "error",
+        {
+          devDependencies: ["**/*.spec.ts", "eslint.config.*"],
+          includeInternal: true,
+        },
+      ],
+      "import/no-import-module-exports": "error",
+      "import/no-named-as-default": "error",
+      "import/no-named-as-default-member": "off",
+      "no-console": "warn",
+      "no-param-reassign": "error",
+      "no-plusplus": "error",
+      "no-throw-literal": "error",
+      "no-unused-vars": ["error", { args: "none", caughtErrors: "none" }],
+    },
   },
-  
-  // TypeScript-specific configuration
   {
-    files: ['**/*.ts'],
+    files: ["**/*.{ts,tsx}"],
+    extends: tseslint.configs.recommendedTypeChecked,
     languageOptions: {
-      parser: tsParser,
       parserOptions: {
-        ecmaVersion: 2022,
-        sourceType: 'module'
-      }
-    },
-    plugins: {
-      '@typescript-eslint': tseslint
+        projectService: true,
+        tsconfigRootDir: import.meta.dirname,
+      },
     },
     rules: {
-      // Disable base rule in favor of TypeScript version
-      'no-unused-vars': 'off',
-      
-      // TypeScript-specific rules
-      '@typescript-eslint/no-unused-vars': ['error', { 
-        args: 'all',
-        argsIgnorePattern: '^_',
-        caughtErrors: 'none' 
-      }],
-      '@typescript-eslint/no-explicit-any': 'warn',
-      '@typescript-eslint/no-var-requires': 'error',
-      
-      // Naming conventions - allow underscore prefix for unused parameters
-      '@typescript-eslint/naming-convention': [
-        'error',
+      "@typescript-eslint/naming-convention": [
+        "error",
         {
-          selector: 'variableLike',
-          format: ['camelCase'],
-          leadingUnderscore: 'allow'
+          selector: "variable",
+          format: ["camelCase"],
         },
         {
-          selector: 'parameter',
-          format: ['camelCase'],
-          leadingUnderscore: 'allow'
+          selector: "typeLike",
+          format: ["PascalCase"],
         },
         {
-          selector: 'typeLike',
-          format: ['PascalCase']
-        }
-      ]
-    }
+          selector: "variable",
+          format: ["PascalCase"],
+          filter: {
+            regex: "Model$",
+            match: true,
+          },
+        },
+        {
+          selector: "variable",
+          modifiers: ["global", "const"],
+          types: ["boolean", "number", "string", "array"],
+          format: ["UPPER_CASE"],
+        },
+        {
+          selector: "memberLike",
+          modifiers: ["private"],
+          format: ["camelCase"],
+          leadingUnderscore: "require",
+        },
+      ],
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        { args: "none", caughtErrors: "none" },
+      ],
+      "@typescript-eslint/no-misused-promises": [
+        "error",
+        {
+          checksVoidReturn: {
+            arguments: false,
+            attributes: false,
+          },
+        },
+      ],
+      "@typescript-eslint/restrict-template-expressions": "off",
+    },
   },
-  
-  // Test files configuration
   {
-    files: ['**/*.test.ts', '**/*.spec.ts'],
+    files: ["**/*.{spec,test}.{ts,tsx}", "tests/*", "vitest.config.ts"],
     rules: {
-      '@typescript-eslint/no-explicit-any': 'off',
-      '@typescript-eslint/no-unsafe-assignment': 'off',
-      '@typescript-eslint/no-unsafe-member-access': 'off'
-    }
-  }
-];
+      "@typescript-eslint/no-unsafe-assignment": "off",
+      "@typescript-eslint/no-unsafe-member-access": "off",
+      "@typescript-eslint/unbound-method": "off",
+      "import/no-extraneous-dependencies": "off",
+    },
+  },
+  {
+    extends: [eslintPluginPrettierRecommended],
+    rules: { "prettier/prettier": "warn" },
+  },
+]);
